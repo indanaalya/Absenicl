@@ -1,6 +1,6 @@
 import json
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -28,6 +28,26 @@ def home(request):
 
   return render(request, 'index.html', {
   })
+
+def asistenedit(request,nim):
+  asist = Asisten.objects.filter(nim=nim)
+  if request.method == "POST": 
+    updatenama = request.POST["namaupdate"]
+    updatenim  = request.POST["nimupdate"]
+    delet = Asisten.objects.filter(nim=nim)
+    delet.delete()
+    update = Asisten(nim=updatenim, nama=updatenama)
+    update.save()
+    return redirect("tabelasisten")
+
+  return render(request, "add-asisten.html", {
+    "asisten" : asist,
+  })
+
+def asistendelete(request,nim):
+  asist = Asisten.objects.filter(nim=nim)
+  asist.delete()
+  return redirect('tabelasisten')
 
 def tabelrapat(request):
   if request.method == "POST":
@@ -78,6 +98,7 @@ def tabelasisten(request):
   return render(request, 'tablesasisten.html', {
     "asisten" : asist
   })
+
 
 class asisten_list(APIView):
   def get(self, request):

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Asisten(models.Model):
-  nim = models.CharField(max_length=30, primary_key=True) 
+  nim = models.CharField(max_length=30, primary_key=True, null=False) 
   nama = models.CharField(max_length=100)
   def __str__(self):
     return self.nama

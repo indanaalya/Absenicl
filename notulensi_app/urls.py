@@ -29,5 +29,7 @@ urlpatterns = [
     path('index.html',views.home, name="home"),
     path('rekaprapat.html',views.rekaprapat, name="rekaprapat"),
     path('rekapabsen.html', views.rekapabsen, name="rekapabsen"),
-    path('tablesasisten.html', views.tabelasisten , name="tabelasisten")
+    path('tablesasisten.html', views.tabelasisten, name="tabelasisten"),
+    path('asisten-edit/<str:nim>', views.asistenedit, name="asisten-edit"),
+    path('asisten-delete/<str:nim>', views.asistendelete, name="asisten-delete")
 ]
