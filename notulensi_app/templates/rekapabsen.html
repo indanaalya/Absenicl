@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>RND JAYA</title>
 
     <!-- Custom fonts for this template -->
     <link href="{% static 'website/vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">RND JAYA</div>
             </a>
 
             <!-- Divider -->
@@ -272,13 +272,15 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Rekap Absen </h6>
-                                <select class="selectpicker custom-select w-25 mt-3" data-style="btn-primary">
+                            <form action="" method="get">
+                                <select class="selectpicker custom-select w-25 mt-3" data-style="btn-primary" name="rekapabsen">
                                     <option selected disabled>Pilih Nama Asisten</option>
                                     {% for item in asisten %}
-                                    <option>{{item.nama}}</option>
+                                    <option >{{item.nama}}</option>
                                     {% endfor %}
                                   </select>
-                                <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
+                                <button type="submit" class="btn btn-outline-primary mt-3 ml-3">Submit</button>
+                              </form>
 
                            
                                             

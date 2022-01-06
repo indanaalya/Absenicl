@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>RND JAYA</title>
 
     <!-- Custom fonts for this template -->
     <link href="{% static 'website/vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">RND JAYA</div>
             </a>
 
             <!-- Divider -->
@@ -211,9 +211,8 @@
                                 <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#rapatmodal" >
                                     Add Rapat
                                   </button>
-                                  <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#absmodal" >
-                                    Add Absensi
-                                  </button>
+                                <a href="{% url 'add-absensi'  %}"type="button" class="btn btn-primary ml-3">Add Absens</a>
+                                  
                             </h6>        
                         </div>
                         <div class="card-body">
@@ -349,47 +348,7 @@
         </div>
       </div>
 
-      <div class="modal fade" id="absmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ADD ABSENSI</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <div class="modal-body">
-                <form action="" method="post">
-                    <label for="">Nama Rapat</label>
-                    <select name="" id="" class="custom-select">
-                        <option value="" selected disabled >Pilih Rapat...</option>
-                        {% for item in rapat %}
-                        <option value=""> {{ item.topik }}</option>
-                        {% endfor %}
-                    </select>
-                    
-                    <label for="">Nama Asisten</label>
-                    <select name="" id="" class="custom-select">
-                        <option value="" selected disabled >Pilih Asisten...</option>
-                        {% for item in asisten %}
-                        <option value=""> {{ item.nama }}</option>
-                        {% endfor %}
-                       
-                    </select>
-                    <label for="">Status Kehadiran</label>
-                    <select name="" id="" class="custom-select">
-                        <option value="" selected disabled >Status Kehadiran...</option>
-                        <option value="True">Hadir</option>
-                        <option value="False">Tidak Hadir</option>
-                    </select>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success" data-toggle="tab" href="index.html">Add Record</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       <!-- <div class="modal fade" id="absenmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -2,6 +2,7 @@ import json
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import requires_csrf_token
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
@@ -17,16 +18,30 @@ from django.shortcuts import render
 from .models import Asisten, Rapat
 
 
+def coba(request):
+  nama = "Tiara"
+  a = 6
+  b = 5
+  luas_segitiga = a*b/2
+  return render(request, 'coba.html',
+  {
+    "nama" : nama,
+    "luas" : luas_segitiga,
+  })
+
+
+
 # Create your views here.
 def home(request):
-  if request.method == "POST":
-    addnama= request.POST["nama"]
-    addnim = request.POST["NIM"]
-
-    add_asisten = Asisten(nim=addnim, nama=addnama)
-    add_asisten.save()
-
-  return render(request, 'index.html', {
+  asist = Asisten.objects.all()
+  totalasis = len(asist)
+  rapat = Rapat.objects.all()
+  totalrapat = len(rapat)
+  return render(request, 'index.html', { 
+    "asisten" : asist,
+    "totalasis" : totalasis,
+    "rapat" : rapat,
+    "totalrapat" : totalrapat,
   })
 
 def asistenedit(request,nim):
@@ -64,8 +79,22 @@ def tabelrapat(request):
 
   return render(request, 'tablerapat.html', {
     "rapat" : rapat,
-    "asisten" : asist,
+    "asisten" : asist,    
+  })
+def addabsen(request):
+  rapat=Rapat.objects.all()
+  asisten = Asisten.objects.all()
+  if request.method == "POST":
+    # addrapat = request.POST["rapat"]
+    # addnama = request.POST["nama"]
+    # addstatus = request.POST["status"]
     
+    # absen = Absensi(rapat=addrapat, asisten=addnama, hadir=addstatus)
+    # absen.save()
+    return redirect('add-absensi')
+  return render(request,"add-absensi.html",{
+  "rapat" : rapat,
+  "asisten" : asisten
   })
 
 def rekaprapat(request):
@@ -82,6 +111,12 @@ def rekapabsen(request):
     "rapat" : rapat,
     "asisten" : asist,
     })
+
+def rekapabsennama(request,nim):
+  pilih = Asisten.objects.filter(nim=nim)
+  return render(request, "index.html" , {
+    "pilih" : pilih
+  })
 
 def tabelasisten(request):
   if request.method == "POST":
