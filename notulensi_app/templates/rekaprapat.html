@@ -271,13 +271,17 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"> Rekap Rapat</h6>
-                            <select  data-style="btn-primary" class="custom-select mt-3 w-25">
-                                <option selected disabled>Pilih Judul Rapat</option>
-                                {% for item in rapat %}
-                                <option >{{item.topik}}</option>
-                                {%endfor%}
-                              </select>
-                              <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
+                            <form action="" method="GET">
+                                <select  data-style="btn-primary" class="custom-select mt-3 w-25" name="rapat">
+                                    <option selected disabled>Pilih Judul Rapat</option>
+                                    {% for item in rapat %}
+                                    <option value={{item.topik}} >{{item.topik}}</option>
+                                    {%endfor%}
+                                  </select>
+                                  <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
+
+                            </form>
+                            
                                               
                         </div>
                         <div class="card-body">

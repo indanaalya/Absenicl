@@ -228,7 +228,7 @@
                             <select name="nama" id="" class="custom-select mt-3">
                                 <option selected disabled>Pilih Nama Asisten</option>
                                 {% for item in asisten %}
-                                <option value="{{item.nama}}" >{{item.nama}}</option>
+                                <option value={{item.nim}} >{{item.nama}}</option>
                                 {% endfor %}
                             </select>
                             <select name="status" id="" class="custom-select mt-3">
@@ -237,8 +237,8 @@
                                 <option value="False">Absen</option>
                             </select>
                             <button class="btn btn-outline-primary mt-3">Add Absensi</button>
-                    </form>
-                </center>
+                            </form>
+                             </center>
                         </div>
                         <div class="col-sm">
                         </div>

@@ -17,7 +17,6 @@ from notulensi_app.serializers import (AsistenSerializer,
 from django.shortcuts import render
 from .models import Asisten, Rapat
 
-
 def coba(request):
   nama = "Tiara"
   a = 6
@@ -28,8 +27,6 @@ def coba(request):
     "nama" : nama,
     "luas" : luas_segitiga,
   })
-
-
 
 # Create your views here.
 def home(request):
@@ -82,19 +79,29 @@ def tabelrapat(request):
     "asisten" : asist,    
   })
 def addabsen(request):
-  rapat=Rapat.objects.all()
-  asisten = Asisten.objects.all()
+  objrapat=Rapat.objects.all()
+  objasisten = Asisten.objects.all()
   if request.method == "POST":
-    # addrapat = request.POST["rapat"]
-    # addnama = request.POST["nama"]
-    # addstatus = request.POST["status"]
-    
-    # absen = Absensi(rapat=addrapat, asisten=addnama, hadir=addstatus)
-    # absen.save()
+    addrapat = request.POST["rapat"]
+    addnama = request.POST["nama"]
+    addstatus = request.POST["status"]
+    namarapat = Rapat.objects.filter(topik=addrapat)
+    namaasisten = Asisten.objects.filter(nim=addnama)
+    for item in namarapat:
+      topikrapat = item
+    for item in namaasisten:
+      addnama = item
+    # print(namaasisten)
+    # print(addnama)
+    # print(addrapat)
+    # print(namarapat)
+    # print(addstatus)  
+    absen = Absensi(rapat=topikrapat, asisten=addnama, hadir=addstatus)
+    absen.save()
     return redirect('add-absensi')
   return render(request,"add-absensi.html",{
-  "rapat" : rapat,
-  "asisten" : asisten
+  "rapat" : objrapat,
+  "asisten" : objasisten
   })
 
 def rekaprapat(request):
@@ -107,10 +114,24 @@ def rekaprapat(request):
 def rekapabsen(request):
   rapat = Rapat.objects.all()
   asist = Asisten.objects.all()
+
+  if request.method == "GET":
+    print(request)
+    rapat = request.data["rapat"]
+    print(rapat)
+
   return render(request, 'rekapabsen.html', {
     "rapat" : rapat,
     "asisten" : asist,
     })
+
+
+def getabsensi(request,nim):
+  asist = Asisten.objects.filter(nim=nim)
+  if request.method == "GET":
+    pass
+  else :
+    pass
 
 def rekapabsennama(request,nim):
   pilih = Asisten.objects.filter(nim=nim)
@@ -133,6 +154,15 @@ def tabelasisten(request):
   return render(request, 'tablesasisten.html', {
     "asisten" : asist
   })
+
+
+
+
+
+
+
+
+
 
 
 class asisten_list(APIView):
