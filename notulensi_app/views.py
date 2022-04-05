@@ -91,11 +91,6 @@ def addabsen(request):
       topikrapat = item
     for item in namaasisten:
       addnama = item
-    # print(namaasisten)
-    # print(addnama)
-    # print(addrapat)
-    # print(namarapat)
-    # print(addstatus)  
     absen = Absensi(rapat=topikrapat, asisten=addnama, hadir=addstatus)
     absen.save()
     return redirect('add-absensi')
@@ -114,16 +109,21 @@ def rekaprapat(request):
 def rekapabsen(request):
   rapat = Rapat.objects.all()
   asist = Asisten.objects.all()
-
-  if request.method == "GET":
-    print(request)
-    rapat = request.data["rapat"]
-    print(rapat)
-
   return render(request, 'rekapabsen.html', {
     "rapat" : rapat,
     "asisten" : asist,
     })
+
+def showabsenasisten(request):
+  # print(request.GET['rekapabsen'])
+  getnim = request.GET['rekapabsen']
+  asistenobj = Asisten.objects.get(nim=getnim)
+  nama = asistenobj
+  asistenobj = Absensi.objects.filter(asisten=asistenobj)
+  print(asistenobj)
+
+  print(asistenobj)
+  return HttpResponse("Sukses")
 
 
 def getabsensi(request,nim):

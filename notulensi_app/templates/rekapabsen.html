@@ -272,14 +272,14 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Rekap Absen </h6>
-                            <form action="" method="get">
+                            <form action="ShowAbsen" method="GET">
                                 <select class="selectpicker custom-select w-25 mt-3" data-style="btn-primary" name="rekapabsen">
                                     <option selected disabled>Pilih Nama Asisten</option>
                                     {% for item in asisten %}
-                                    <option >{{item.nama}}</option>
+                                    <option value={{item.nim}}>{{item.nama}}</option>
                                     {% endfor %}
                                   </select>
-                                <button type="submit" class="btn btn-outline-primary mt-3 ml-3">Submit</button>
+                                <button type="submit" class="btn btn-outline-primary mt-3 ml-3">SUBMIT</button>
                               </form>
 
                            
