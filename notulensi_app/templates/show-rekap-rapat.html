@@ -1,4 +1,4 @@
-{%load static%}
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -187,7 +187,6 @@
                         </button>
                     </form>
 
-                    <!-- Topbar Search -->
                     
 
                     <!-- Topbar Navbar -->
@@ -234,7 +233,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 
                             </a>
-                           
+                            
                         </li>
 
                         <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
@@ -271,23 +270,52 @@
                     
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Rekap Absen </h6>
-                            <form action="ShowAbsen" method="GET">
-                                <select class="selectpicker custom-select w-25 mt-3" data-style="btn-primary" name="rekapabsen">
-                                    <option selected disabled>Pilih Nama Asisten</option>
-                                    {% for item in asisten %}
-                                    <option value={{item.nim}}>{{item.nama}}</option>
-                                    {% endfor %}
+                            <h6 class="m-0 font-weight-bold text-primary"> Rekap Rapat : {{nama_rapat}}</h6>
+                            <form action="show-rekap-rapat" method="GET">
+                                <select  data-style="btn-primary" class="custom-select mt-3 w-25" name="rapat">
+                                    <option selected disabled>Pilih Judul Rapat</option>
+                                    {% for item in rapat %}
+                                    <option value={{item.id}} >{{item.topik}}</option>
+                                    {%endfor%}
                                   </select>
-                                <button type="submit" class="btn btn-outline-primary mt-3 ml-3">SUBMIT</button>
-                              </form>
+                                  <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
 
-                           
-                                            
+                            </form>
+                            
+                                              
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Asisten</th>
+                                            <th>NIM</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot> -->
+                                   
+                                    {% for item in objekterpilih %}
+                                    <tr>
+
+                                        <td> {{item.asisten}}</td>
+                                        <td> {{item.asisten.nim}} </td>
+                                        <td> {{item.hadir}}</td>
+                                       
+                                    </tr>
+                                    {%endfor%}
+        
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -356,7 +384,85 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'website/js/demo/datatables-demo.js'%}"></script>
 
+    <div class="modal fade" id="asistenmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <form action="" method="post">
+                      <label for="">Nama Asisten</label>
+                      <div>
+                          <input type="text" class ="form-control input-lg ">
+                        <!-- <input class="form-control input-lg" name="email" value=""> -->
+                    </div>
+                    <label for="">NIM Asisten</label>
+                    <div>
+                        <input type="text" name="" id="" class="form-control">
+                    </div>
+                  </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" data-toggle="tab" href="index.html">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="rapatmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <form action="" method="post">
+                      <label for="">Judul Rapat</label>
+                      <input type="text" class="form-control">
+                      <div>
+                          <label for="">Waktu Rapat</label>
+                        <!-- <input class="form-control input-lg" name="email" value=""> -->
+                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
+                            <input placeholder="Select date" type="text" id="example" class="form-control"> 
+                  </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" data-toggle="tab" href="index.html">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="modal fade" id="absenmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 

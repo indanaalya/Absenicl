@@ -1,4 +1,5 @@
 import json
+from django.db import connection
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
@@ -78,6 +79,7 @@ def tabelrapat(request):
     "rapat" : rapat,
     "asisten" : asist,    
   })
+
 def addabsen(request):
   objrapat=Rapat.objects.all()
   objasisten = Asisten.objects.all()
@@ -105,7 +107,6 @@ def rekaprapat(request):
     "rapat" : rapat
   })
 
-
 def rekapabsen(request):
   rapat = Rapat.objects.all()
   asist = Asisten.objects.all()
@@ -115,16 +116,40 @@ def rekapabsen(request):
     })
 
 def showabsenasisten(request):
-  # print(request.GET['rekapabsen'])
+  asisten = Asisten.objects.all()
   getnim = request.GET['rekapabsen']
-  asistenobj = Asisten.objects.get(nim=getnim)
-  nama = asistenobj
-  asistenobj = Absensi.objects.filter(asisten=asistenobj)
-  print(asistenobj)
+  asistenobj = Absensi.objects.filter(asisten=getnim)
 
-  print(asistenobj)
-  return HttpResponse("Sukses")
+  for item in asistenobj:
+    if item.hadir == True :
+      item.hadir = "Hadir"
+    else:
+      item.hadir = "Absen"
+  
+ 
+  return render(request, "show-absensi.html",{
+    "asisten":asisten,
+    "objekterpilih" : asistenobj
+  })
 
+def show_rekap_rapat(request):
+  rapat = Rapat.objects.all()
+  getidrapat = request.GET['rapat']
+  namarapat = Rapat.objects.get(id=getidrapat)
+  print(namarapat)
+  rapatobj = Absensi.objects.filter(rapat=getidrapat , hadir=True)
+
+  for item in rapatobj:
+    if item.hadir == True :
+      item.hadir = "Hadir"
+    else:
+      item.hadir = "Absen"
+
+  return render(request,"show-rekap-rapat.html",{
+    "objekterpilih" : rapatobj,
+    "rapat" : rapat,
+    "nama_rapat" : namarapat
+  })
 
 def getabsensi(request,nim):
   asist = Asisten.objects.filter(nim=nim)
@@ -157,13 +182,7 @@ def tabelasisten(request):
 
 
 
-
-
-
-
-
-
-
+### INI UDAH API ###
 
 class asisten_list(APIView):
   def get(self, request):

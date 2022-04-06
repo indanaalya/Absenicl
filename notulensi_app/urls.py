@@ -37,5 +37,6 @@ urlpatterns = [
     path('add-absensi', views.addabsen, name="add-absensi"),
     path('rekap-absen/<str:nim>' ,views.rekapabsennama, name="rekap-absen"),
     path('coba.html', views.coba, name="coba"),
-    path('ShowAbsen',views.showabsenasisten, name="show-absen")
+    path('ShowAbsen',views.showabsenasisten, name="show-absen"),
+    path('show-rekap-rapat',views.show_rekap_rapat, name="show-rekap-rapat")
 ]

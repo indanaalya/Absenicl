@@ -271,11 +271,11 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary"> Rekap Rapat</h6>
-                            <form action="" method="GET">
+                            <form action="show-rekap-rapat" method="GET">
                                 <select  data-style="btn-primary" class="custom-select mt-3 w-25" name="rapat">
                                     <option selected disabled>Pilih Judul Rapat</option>
                                     {% for item in rapat %}
-                                    <option value={{item.topik}} >{{item.topik}}</option>
+                                    <option value={{item.id}} >{{item.topik}}</option>
                                     {%endfor%}
                                   </select>
                                   <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
@@ -284,42 +284,7 @@
                             
                                               
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Asisten</th>
-                                            <th>NIM</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <!-- <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot> -->
-                                   
-                                    <tbody>
-
-                                        <td> Maulana Reza </td>
-                                        <td> 205060700111024 </td>
-                                        <td> Kabur </td>
-                                       
-                                    </tbody>
-                                    <tbody> 
-                                        <td> Addis Rheza </td>
-                                        <td> 205060700111025</td>
-                                        <td> Hadir </td>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>
