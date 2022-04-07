@@ -17,6 +17,26 @@ from notulensi_app.serializers import (AsistenSerializer,
  AbsensiPostSerializer)
 from django.shortcuts import render
 from .models import Asisten, Rapat
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+
+def login(request):
+  return render(request,"login.html")
+
+def performlogin(request):
+  if request.method != "POST":
+    return HttpResponse("Method not Allowed")
+  else:
+    print(request)
+    username = request.POST.get('username')
+    print(username)
+    password = request.POST.get('password')
+    userobj = authenticate(request, username=username,password=password)
+    if userobj is not None:
+      login(userobj)
+      return redirect("home")
+    else:
+      return redirect("login")
 
 def coba(request):
   nama = "Tiara"
@@ -89,13 +109,19 @@ def addabsen(request):
     addstatus = request.POST["status"]
     namarapat = Rapat.objects.filter(topik=addrapat)
     namaasisten = Asisten.objects.filter(nim=addnama)
+    # cek = Absensi.objects.filter(asisten = addnama , rapat = addrapat)
+    # print(cek)
     for item in namarapat:
       topikrapat = item
     for item in namaasisten:
       addnama = item
-    absen = Absensi(rapat=topikrapat, asisten=addnama, hadir=addstatus)
-    absen.save()
-    return redirect('add-absensi')
+    cek = Absensi.objects.filter(asisten = addnama , rapat = topikrapat).exists()
+    if cek == True :
+      messages.success(request, "Data tidak terecord")
+    else:
+      absen = Absensi(rapat=topikrapat, asisten=addnama, hadir=addstatus)
+      absen.save()
+      return redirect('add-absensi')
   return render(request,"add-absensi.html",{
   "rapat" : objrapat,
   "asisten" : objasisten

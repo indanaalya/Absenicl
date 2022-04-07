@@ -16,6 +16,7 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path, include
+from pandas import NamedAgg
 from . import views
 
 urlpatterns = [
@@ -38,5 +39,7 @@ urlpatterns = [
     path('rekap-absen/<str:nim>' ,views.rekapabsennama, name="rekap-absen"),
     path('coba.html', views.coba, name="coba"),
     path('ShowAbsen',views.showabsenasisten, name="show-absen"),
-    path('show-rekap-rapat',views.show_rekap_rapat, name="show-rekap-rapat")
+    path('show-rekap-rapat',views.show_rekap_rapat, name="show-rekap-rapat"),
+    path('login',views.login, name='login'),
+    path('performlogin',views.performlogin,name="performlogin")
 ]
