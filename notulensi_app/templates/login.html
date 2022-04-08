@@ -65,6 +65,18 @@
           </div>
         </div>
       </section>
+
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        {% if messages %}
+        {% if message.tags == "error" %}
+        <script>
+              swal({icon: "error", text: "Username atau Password salah ",});
+          </script>
+                        {% endif %}
+                        {% endif %}
+
 </body>
 
 </html>
+

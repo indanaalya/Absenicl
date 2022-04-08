@@ -16,7 +16,6 @@ Including another URLconf
 from unicodedata import name
 from django.contrib import admin
 from django.urls import path, include
-from pandas import NamedAgg
 from . import views
 
 urlpatterns = [

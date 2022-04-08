@@ -18,7 +18,9 @@ from notulensi_app.serializers import (AsistenSerializer,
 from django.shortcuts import render
 from .models import Asisten, Rapat
 from django.contrib import messages
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout
 
 def login(request):
   return render(request,"login.html")
@@ -31,9 +33,12 @@ def performlogin(request):
     username = request.POST.get('username')
     print(username)
     password = request.POST.get('password')
+    print(username)
     userobj = authenticate(request, username=username,password=password)
+    print(userobj)
     if userobj is not None:
-      login(userobj)
+      auth_login(request,userobj)
+      messages.error(request,"Username atau Password salah !!!")
       return redirect("home")
     else:
       return redirect("login")
