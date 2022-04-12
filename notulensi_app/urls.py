@@ -40,5 +40,7 @@ urlpatterns = [
     path('ShowAbsen',views.showabsenasisten, name="show-absen"),
     path('show-rekap-rapat',views.show_rekap_rapat, name="show-rekap-rapat"),
     path('login',views.login, name='login'),
-    path('performlogin',views.performlogin,name="performlogin")
+    path('performlogin',views.performlogin,name="performlogin"),
+    path('performlogout',views.performlogout,name="performlogout")
+
 ]

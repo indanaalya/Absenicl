@@ -1,4 +1,5 @@
 import json
+from os import name
 from django.db import connection
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -20,16 +21,25 @@ from .models import Asisten, Rapat
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from django.contrib.auth import logout
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+
+def logout(request):
+  auth_logout(request)
+  messages.info(request,"Berhasil Logout")
+  return redirect()
 
 def login(request):
-  return render(request,"login.html")
+  return render(request,"loginsiam.html")
 
 def performlogin(request):
   if request.method != "POST":
     return HttpResponse("Method not Allowed")
   else:
     print(request)
+    # for i in request:
+    #   print(i)
     username = request.POST.get('username')
     print(username)
     password = request.POST.get('password')
@@ -38,10 +48,16 @@ def performlogin(request):
     print(userobj)
     if userobj is not None:
       auth_login(request,userobj)
-      messages.error(request,"Username atau Password salah !!!")
+      messages.success(request,"Login success")
       return redirect("home")
     else:
+      messages.error(request,"Username atau Password salah !!!")
       return redirect("login")
+
+def performlogout(request):
+  auth_logout(request)
+  print("Anda keluar")
+  return redirect("login")
 
 def coba(request):
   nama = "Tiara"
@@ -55,7 +71,11 @@ def coba(request):
   })
 
 # Create your views here.
+@login_required
 def home(request):
+  print(request.user)
+  print(request.user.groups.all())
+  print(request)
   asist = Asisten.objects.all()
   totalasis = len(asist)
   rapat = Rapat.objects.all()
@@ -66,7 +86,7 @@ def home(request):
     "rapat" : rapat,
     "totalrapat" : totalrapat,
   })
-
+@login_required
 def asistenedit(request,nim):
   asist = Asisten.objects.filter(nim=nim)
   if request.method == "POST": 
@@ -81,12 +101,12 @@ def asistenedit(request,nim):
   return render(request, "add-asisten.html", {
     "asisten" : asist,
   })
-
+@login_required
 def asistendelete(request,nim):
   asist = Asisten.objects.filter(nim=nim)
   asist.delete()
   return redirect('tabelasisten')
-
+@login_required
 def tabelrapat(request):
   if request.method == "POST":
     addjudul = request.POST["rapat"]
@@ -104,7 +124,7 @@ def tabelrapat(request):
     "rapat" : rapat,
     "asisten" : asist,    
   })
-
+@login_required
 def addabsen(request):
   objrapat=Rapat.objects.all()
   objasisten = Asisten.objects.all()
@@ -131,13 +151,13 @@ def addabsen(request):
   "rapat" : objrapat,
   "asisten" : objasisten
   })
-
+@login_required
 def rekaprapat(request):
   rapat = Rapat.objects.all()
   return render(request, 'rekaprapat.html',{
     "rapat" : rapat
   })
-
+@login_required
 def rekapabsen(request):
   rapat = Rapat.objects.all()
   asist = Asisten.objects.all()
@@ -145,7 +165,7 @@ def rekapabsen(request):
     "rapat" : rapat,
     "asisten" : asist,
     })
-
+@login_required
 def showabsenasisten(request):
   asisten = Asisten.objects.all()
   getnim = request.GET['rekapabsen']
@@ -162,7 +182,7 @@ def showabsenasisten(request):
     "asisten":asisten,
     "objekterpilih" : asistenobj
   })
-
+@login_required
 def show_rekap_rapat(request):
   rapat = Rapat.objects.all()
   getidrapat = request.GET['rapat']
@@ -181,20 +201,20 @@ def show_rekap_rapat(request):
     "rapat" : rapat,
     "nama_rapat" : namarapat
   })
-
+@login_required
 def getabsensi(request,nim):
   asist = Asisten.objects.filter(nim=nim)
   if request.method == "GET":
     pass
   else :
     pass
-
+@login_required
 def rekapabsennama(request,nim):
   pilih = Asisten.objects.filter(nim=nim)
   return render(request, "index.html" , {
     "pilih" : pilih
   })
-
+@login_required
 def tabelasisten(request):
   if request.method == "POST":
     addnama= request.POST["nama"]
