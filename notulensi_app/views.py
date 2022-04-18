@@ -25,13 +25,31 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
+def indexsiam(request):
+  print(request)
+  print(dir(request))
+  print(" ")
+  print(dir(request.user))
+  print(" ")
+  print(request.user.is_authenticated)
+  print(dir(request))
+  print(request.POST)
+  print(request.COOKIES)
+  print(dir(request.user))
+  print(request.user.is_authenticated)
+  return render(request,"indexsiam.html")
+
+@login_required
 def logout(request):
   auth_logout(request)
   messages.info(request,"Berhasil Logout")
   return redirect()
 
 def login(request):
-  return render(request,"loginsiam.html")
+  if request.user.is_authenticated:
+    return redirect("home")
+  else:
+    return render(request,"loginsiam.html")
 
 def performlogin(request):
   if request.method != "POST":
@@ -53,7 +71,7 @@ def performlogin(request):
     else:
       messages.error(request,"Username atau Password salah !!!")
       return redirect("login")
-
+@login_required
 def performlogout(request):
   auth_logout(request)
   print("Anda keluar")
@@ -80,12 +98,20 @@ def home(request):
   totalasis = len(asist)
   rapat = Rapat.objects.all()
   totalrapat = len(rapat)
-  return render(request, 'index.html', { 
-    "asisten" : asist,
-    "totalasis" : totalasis,
-    "rapat" : rapat,
-    "totalrapat" : totalrapat,
-  })
+  if request.user.is_authenticated and request.user.is_superuser:
+    return render(request, 'index.html', { 
+      "asisten" : asist,
+      "totalasis" : totalasis,
+      "rapat" : rapat,
+      "totalrapat" : totalrapat,
+    })
+  elif request.user.is_authenticated and request.user.is_staff:
+     return render(request, 'index.html', { 
+      "asisten" : asist,
+      "totalasis" : totalasis,
+      "rapat" : rapat,
+      "totalrapat" : totalrapat,
+    })
 @login_required
 def asistenedit(request,nim):
   asist = Asisten.objects.filter(nim=nim)
@@ -120,10 +146,16 @@ def tabelrapat(request):
     rapat = Rapat.objects.all()
     asist = Asisten.objects.all()
 
-  return render(request, 'tablerapat.html', {
-    "rapat" : rapat,
-    "asisten" : asist,    
-  })
+  if request.user.is_authenticated and request.user.is_superuser:
+    return render(request, 'tablerapat.html', {
+      "rapat" : rapat,
+      "asisten" : asist,    
+    })
+  elif request.user.is_authenticated and request.user.is_staff:
+    return render(request,'tablerapatstaff.html',{
+      "rapat" : rapat,
+      "asisten" : asist
+    })
 @login_required
 def addabsen(request):
   objrapat=Rapat.objects.all()
@@ -227,9 +259,15 @@ def tabelasisten(request):
   else:
     asist = Asisten.objects.all()
 
-  return render(request, 'tablesasisten.html', {
-    "asisten" : asist
-  })
+  if request.user.is_authenticated and request.user.is_superuser:
+    return render(request, 'tablesasisten.html', {
+      "asisten" : asist
+    })
+  
+  elif request.user.is_authenticated and request.user.is_staff:
+    return render(request, 'tablesasistenstaff.html',{
+      "asisten" : asist
+    })
 
 
 

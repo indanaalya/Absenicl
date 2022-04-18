@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,81 +55,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Interface
-            </div> -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li> -->
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li> -->
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
-
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li> -->
-
-            <!-- Nav Item - Charts -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li> -->
 
             <!-- Nav Item - Tables -->
             <div>
@@ -187,7 +112,19 @@
                         </button>
                     </form>
 
-                    
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -270,21 +207,52 @@
                     
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"> Rekap Rapat</h6>
-                            <form action="show-rekap-rapat" method="GET">
-                                <select  data-style="btn-primary" class="custom-select mt-3 w-25" name="rapat">
-                                    <option selected disabled>Pilih Judul Rapat</option>
-                                    {% for item in rapat %}
-                                    <option value={{item.id}} >{{item.topik}}</option>
-                                    {%endfor%}
-                                  </select>
-                                  <button type="submit" class="btn btn-outline-primary ml-2 px-3 mt-3"> Submit </button>
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Rapat
 
-                            </form>
-                            
-                                              
+                                <a href="{% url 'add-absensi'  %}"type="button" class="btn btn-primary ml-3">Add Absens</a>
+                                  
+                            </h6>        
                         </div>
-                        
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <td> 
+                                                <strong>
+                                                Judul
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                Notulen
+                                                </strong>
+                                            </td>
+                                          
+                                            
+                                        </tr>
+                                    </thead>
+                                    <!-- <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Age</th>
+                                            <th>Start date</th>
+                                            <th>Salary</th>
+                                        </tr>
+                                    </tfoot> -->
+                                   <tbody>
+                                       {% for detail in rapat %}
+                                       <tr>
+                                           <td>{{ detail.topik}}</td>
+                                           <td>{{ detail.notulensi}}</td>
+                                       </tr>
+                                       {% endfor %}
+                                   </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -328,7 +296,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login">Logout</a>
+                    <a class="btn btn-primary" href="{% url 'performlogout' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -351,86 +319,64 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'website/js/demo/datatables-demo.js'%}"></script>
 
-    <div class="modal fade" id="asistenmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div>
-                  <form action="" method="post">
-                      <label for="">Nama Asisten</label>
-                      <div>
-                          <input type="text" class ="form-control input-lg ">
-                        <!-- <input class="form-control input-lg" name="email" value=""> -->
-                    </div>
-                    <label for="">NIM Asisten</label>
-                    <div>
-                        <input type="text" name="" id="" class="form-control">
-                    </div>
-                  </form>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" data-toggle="tab" href="index.html">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade" id="rapatmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div>
-                  <form action="" method="post">
-                      <label for="">Judul Rapat</label>
-                      <input type="text" class="form-control">
-                      <div>
-                          <label for="">Waktu Rapat</label>
-                        <!-- <input class="form-control input-lg" name="email" value=""> -->
-                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
-                            <input placeholder="Select date" type="text" id="example" class="form-control"> 
-                  </form>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" data-toggle="tab" href="index.html">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="absenmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <!-- INI BUAT MODAL ABSEN -->
+    <div class="modal fade" id="rapatmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                    <h5 class="modal-title" id="exampleModalLabel">ADD RAPAT</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{% url 'performlogout' %}">Logout</a>
-                </div>
+            <div class="modal-body">
+                  <form action="" method="post">
+                      {% csrf_token %}
+                    <label for="">Judul Rapat</label>
+                    <input type="text" class="form-control" name="rapat">
+                    <label for="">Notulensi</label>
+                    <input placeholder="Ketik isi notulensi..." type="text" id="example" class="form-control" name="notul">
+                 
             </div>
+            <div class="modal-footer">
+                <input type="submit" name="" id="" class="btn btn-success">
+            </form>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
+      
+
+      <!-- <div class="modal fade" id="absenmodal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                  <form action="" method="post">
+                    <label for="">Nama Asisten</label>
+                    <input type="text" class="form-control">
+                    <div>
+                     <label for="">Waktu Rapat</label>
+                      <input type="text" class="form-inline">  
+                  </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" data-toggle="tab" href="index.html">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+     
 </body>
 
 </html>

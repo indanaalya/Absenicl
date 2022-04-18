@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    background-color:#115599 ;
+}
+
+
+.wrapper{
+    width: 40%;
+    margin: 20px auto;
+    background-color: white;
+    height: 800px;
+    color: black;
+}
