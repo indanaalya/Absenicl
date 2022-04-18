@@ -112,6 +112,13 @@ def home(request):
       "rapat" : rapat,
       "totalrapat" : totalrapat,
     })
+  else:
+    return render(request,"index.html",{
+      "asisten" : asist,
+      "totalasis" : totalasis,
+      "rapat" : rapat,
+      "totalrapat" : totalrapat,
+    })
 @login_required
 def asistenedit(request,nim):
   asist = Asisten.objects.filter(nim=nim)
@@ -153,6 +160,11 @@ def tabelrapat(request):
     })
   elif request.user.is_authenticated and request.user.is_staff:
     return render(request,'tablerapatstaff.html',{
+      "rapat" : rapat,
+      "asisten" : asist
+    })
+  else:
+    return render(request,'tablerapatview.html',{
       "rapat" : rapat,
       "asisten" : asist
     })
@@ -268,6 +280,9 @@ def tabelasisten(request):
     return render(request, 'tablesasistenstaff.html',{
       "asisten" : asist
     })
+  else:
+    return render(request, 'tablesasistenview.html',{
+      "asisten" : asist})
 
 
 
