@@ -22,3 +22,6 @@ class Absensi(models.Model):
 
 class model:
   pass
+
+class model2:
+  pass
