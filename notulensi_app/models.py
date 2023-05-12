@@ -19,3 +19,6 @@ class Absensi(models.Model):
    rapat = models.ForeignKey(Rapat, related_name='rapat', on_delete=models.CASCADE)
    asisten = models.ForeignKey(Asisten, related_name='asisten', on_delete=models.CASCADE)
    hadir = models.BooleanField()
+
+class model:
+  pass
